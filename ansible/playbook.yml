@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Install EPEL repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install Ansible
+    yum:
+      name: ansible
+      state: present
+  
+  - name: Install git, nmap and net-tools 
+    yum:
+      state: present
+      name:
+        - git
+        - nmap
+        - net-tools
+        - telnet
+        - mtr
+
+  - name: Install nginx webserver
+    yum:
+      state: present
+      name: nginx
+  
+  - name: Make sure nginx is running
+    systemd:
+      state: started
+      name: nginx
